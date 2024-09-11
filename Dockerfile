@@ -3,5 +3,5 @@ COPY . .
 RUN mvn -B clean package -DskipTests
 
 FROM openjdk:21
-COPY --from=build target/*.jar devops_assignment.jar
+COPY --from=build target/*.jar project_management.jar
 ENTRYPOINT ["java","-jar","-Dserver.port=8080","project_management.jar"]
