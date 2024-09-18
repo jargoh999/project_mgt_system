@@ -52,10 +52,10 @@ public class IssueController {
             dto.setDescription( issue.getDescription());
             dto.setDueDate( issue.getDueDate());
             dto.setId( issue.getId());
-            dto.setPriority(issue.getPriority());
+//            dto.setPriority(issue.getPriority());
             dto.setProject(issue.getProject());
             dto.setProject_ID(issue.getProject_ID());
-            dto.setStatus(issue.getStatus());
+//            dto.setStatus(issue.getStatus());
             dto.setTitle(issue.getTitle());
             dto.setTags(issue.getTags());
             dto.setAssignee(issue.getAssignee());
@@ -128,3 +128,4 @@ public class IssueController {
 }
 
 }
+

@@ -56,5 +56,9 @@ public class SubscriptionService {
           return endDate.isAfter(currentDate)||endDate.isEqual(currentDate);
     }
 
+    public static void main(String[] args) {
+        System.out.println(LocalDate.now());
+    }
+
 
 }

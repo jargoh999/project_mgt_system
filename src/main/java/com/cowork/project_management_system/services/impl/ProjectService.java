@@ -16,20 +16,26 @@ public class ProjectService {
     private final Projects projects;
     private final UserServicesImpl userServices;
     private final ChatService chatService;
+
     public Project createProject(Project project , User user) {
-    Project createdProject = new Project();
-    createdProject.setOwner(user);
-    createdProject.setTags(project.getTags());
-    createdProject.setName(project.getName());
-    createdProject.setCategory(project.getCategory());
-    createdProject.setDescription(project.getDescription());
-    createdProject.getTeam().add(user);
-    createdProject=projects.save(createdProject);
-    Chat chat = new Chat();
-    chat.setProject(createdProject);
-    chat = chatService.createChat(chat);
-    createdProject.setChat(chat);
-    return createdProject;
+        Project createdProject = new Project();
+        createdProject.setOwner(user);
+        createdProject.setTags(project.getTags());
+        createdProject.setName(project.getName());
+        createdProject.setCategory(project.getCategory());
+        createdProject.setDescription(project.getDescription());
+        createdProject.getTeam().add(user);
+
+        //new fields
+        createdProject.setStartDate(project.getStartDate());
+        createdProject.setDueDate(project.getDueDate());
+        createdProject.setStatus(project.getStatus());
+        createdProject=projects.save(createdProject);
+        Chat chat = new Chat();
+        chat.setProject(createdProject);
+        chat = chatService.createChat(chat);
+        createdProject.setChat(chat);
+        return createdProject;
     }
 
     public Project getProjectById(Long projectId){
@@ -98,7 +104,5 @@ public class ProjectService {
     public List<Project> searchProject(String keyword, User user){
         return projects.findProjectByNameContainingAndTeamContains(keyword, user);
     }
-
-
 
 }

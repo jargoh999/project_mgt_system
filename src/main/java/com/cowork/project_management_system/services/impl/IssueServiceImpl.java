@@ -3,6 +3,7 @@ package com.cowork.project_management_system.services.impl;
 import com.cowork.project_management_system.dtos.IssueRequest;
 import com.cowork.project_management_system.model.Issue;
 import com.cowork.project_management_system.model.Project;
+import com.cowork.project_management_system.model.Status;
 import com.cowork.project_management_system.model.User;
 import com.cowork.project_management_system.repository.Issues;
 import com.cowork.project_management_system.repository.Users;
@@ -73,7 +74,7 @@ public class IssueServiceImpl {
 
     public Issue updateStatus(Long issueId, String status) {
         Issue issue = getIssueById(issueId);
-        issue.setStatus(status);
+        issue.setStatus(Status.valueOf(status));
         return issues.save(issue);
     }
 
