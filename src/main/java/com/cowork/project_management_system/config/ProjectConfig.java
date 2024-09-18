@@ -44,14 +44,14 @@ public class ProjectConfig {
                         "http://localhost:5173",
                         "http://localhost:4200"
                 ));
-
-                cfg.setAllowedMethods(Collections.singletonList("*"));
+                cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                 cfg.setAllowCredentials(true);
-                cfg.setAllowedHeaders(Collections.singletonList("*"));
+                cfg.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
                 cfg.setExposedHeaders(Arrays.asList("Authorization"));
                 cfg.setMaxAge(3600L);
                 return cfg;
             }
+
 
             @Bean
             PasswordEncoder passwordEncoder() {
