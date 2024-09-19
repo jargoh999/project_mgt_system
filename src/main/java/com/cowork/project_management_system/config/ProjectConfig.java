@@ -40,13 +40,13 @@ public class ProjectConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration cfg = new CorsConfiguration();
                 cfg.setAllowedOrigins(Arrays.asList(
-                        "http://localhost:3000",
-                        "http://localhost:5173",
-                        "http://localhost:4200"
+                        "http://localhost:3000/**",
+                        "http://localhost:5173/**",
+                        "http://localhost:4200/**"
                 ));
-                cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                cfg.setAllowedMethods(Arrays.asList("*"));
                 cfg.setAllowCredentials(true);
-                cfg.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+                cfg.setAllowedHeaders(Arrays.asList("*"));
                 cfg.setExposedHeaders(Arrays.asList("Authorization"));
                 cfg.setMaxAge(3600L);
                 return cfg;
