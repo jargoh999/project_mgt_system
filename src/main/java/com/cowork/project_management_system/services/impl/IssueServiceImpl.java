@@ -20,7 +20,7 @@ public class IssueServiceImpl {
     private final ProjectService projectService;
 
     private final UserServicesImpl userServices;
-    private final Users users;
+
 
     public Issue getIssueById(Long issueId) {
         return issues.findById(issueId).orElseThrow(() -> new IllegalStateException("something is wrong"));

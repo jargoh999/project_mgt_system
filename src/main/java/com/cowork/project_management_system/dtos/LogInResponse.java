@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LogInResponse {
     private String email;
-    private String jwtToken;
+    private String jwt;
 }

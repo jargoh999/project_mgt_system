@@ -84,7 +84,6 @@ public class ProjectController {
         return new ResponseEntity<>(createdProject, OK);
         }catch(Exception e){
             return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
-
         }
         }
 

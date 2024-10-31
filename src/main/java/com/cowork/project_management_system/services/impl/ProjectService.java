@@ -47,7 +47,7 @@ public class ProjectService {
         }
         if(tag!=null){
             projectList = projectList.stream().filter(project->project
-                    .getCategory().equals(tag)).collect(Collectors.toList());
+                    .getTags().contains(tag)).collect(Collectors.toList());
         }
         return projectList;
     }
@@ -59,7 +59,6 @@ public class ProjectService {
     }
 
     public Project updateProject(Project updatedProject , Long id){
-
         Project project = getProjectById(id);
         project.setName(updatedProject.getName());
         project.setDescription(updatedProject.getDescription());
@@ -79,7 +78,6 @@ public class ProjectService {
     }
 
     public String removeUserFromProject(Long projectId , Long userId ){
-
         Project project = getProjectById(projectId);
         User user = userServices.findUserByUserId(userId);
         if(!project.getTeam().contains(user)){

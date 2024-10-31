@@ -13,57 +13,52 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 
-@Configuration
-@EnableWebSecurity
-public class ProjectConfig {
 
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.sessionManagement(SecurityManager -> SecurityManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorizer -> authorizer.requestMatchers("/api/**").authenticated().anyRequest()
-                        .permitAll()).addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+import java.util.Arrays;
 
-        return http.build();
+    @Configuration
+    @EnableWebSecurity
+    public class ProjectConfig {
+
+        @Bean
+        SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+            http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .authorizeHttpRequests(authorize -> authorize
+                            .requestMatchers("/api/**").authenticated()
+                            .anyRequest().permitAll())
+                    .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
+                    .csrf(AbstractHttpConfigurer::disable)
+                    .cors(cors -> cors.configurationSource(corsConfigurationSource()));
+
+            return http.build();
+        }
+
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedOrigins(Arrays.asList(
+                    "http://localhost:3000",
+                    "http://localhost:5173",
+                    "http://localhost:4200"
+            ));
+            config.setAllowedMethods(Arrays.asList("*"));
+            config.setAllowCredentials(true);
+            config.setAllowedHeaders(Arrays.asList("*"));
+            config.setExposedHeaders(Arrays.asList("Authorization"));
+            config.setMaxAge(3600L);
+            source.registerCorsConfiguration("/**", config);
+            return source;
+        }
+
+        @Bean
+        PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
     }
 
-
-    private CorsConfigurationSource corsConfigurationSource() {
-        return new CorsConfigurationSource() {
-
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                CorsConfiguration cfg = new CorsConfiguration();
-                cfg.setAllowedOrigins(Arrays.asList(
-                        "http://localhost:3000/**",
-                        "http://localhost:5173/**",
-                        "http://localhost:4200/**"
-                ));
-                cfg.setAllowedMethods(Arrays.asList("*"));
-                cfg.setAllowCredentials(true);
-                cfg.setAllowedHeaders(Arrays.asList("*"));
-                cfg.setExposedHeaders(Arrays.asList("Authorization"));
-                cfg.setMaxAge(3600L);
-                return cfg;
-            }
-
-
-            @Bean
-            PasswordEncoder passwordEncoder() {
-                return new BCryptPasswordEncoder();
-            }
-        };
-
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return  new BCryptPasswordEncoder();
-    }
-
-}
+//}

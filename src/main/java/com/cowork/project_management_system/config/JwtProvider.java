@@ -1,42 +1,5 @@
 package com.cowork.project_management_system.config;//package com.jargoh.project_management_system.config;
-//
-//import io.jsonwebtoken.Claims;
-//import io.jsonwebtoken.Jwts;
-//import io.jsonwebtoken.security.Keys;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.GrantedAuthority;
-//
-//import javax.crypto.SecretKey;
-//
-//import java.util.Collection;
-//import java.util.Date;
-//
-//import static config.com.cowork.project_management_system.JwtConstants.EXPIRATION_TIME;
-//import static config.com.cowork.project_management_system.JwtConstants.SECRET;
-//
-//public class JwtProvider {
-//    static SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
-//    public static String generateToken(Authentication authentication){
-//           String jwt = Jwts.builder().setIssuedAt(new Date())
-//                   .setExpiration(new Date(new Date().getTime()+EXPIRATION_TIME))
-//                   .claim("email",authentication.getName())
-//                   .signWith(key)
-//                   .compact();
-//           return jwt;
-//
-//    }
-//
-//
-//    public static String getEmailFromToken(String token){
-//        token = token.substring(7);
-//        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-//        return String.valueOf(claims.get("email"));
-//    }
-//
-//
-//
-//
-//}
+
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
